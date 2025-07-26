@@ -87,4 +87,10 @@ config.development.js
 
 # Unnecessary files
 sitemap.xml
-test_csp.html
+test_csp.html# La
+rge media files (use Git LFS if needed)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm

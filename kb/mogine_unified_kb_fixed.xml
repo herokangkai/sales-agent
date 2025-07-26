@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+摩泛科技统一知识库
+Mogine Unified Knowledge Base
+整合了所有 JSON 文件和 Markdown 文档的统一知识库格式
+-->
+<mogine_knowledge_base version="1.0" last_updated="2025-07-21">
+    
+    <!-- 元数据信息 -->
+    <metadata>
+        <company>
+            <name_cn>摩泛科技</name_cn>
+            <name_en>Mogine</name_en>
+            <full_name_cn>上海摩泛科技有限公司</full_name_cn>
+            <full_name_en>Shanghai MoFine Technology Co., Ltd.</full_name_en>
+            <website>https://www.shmofine.com/#/index</website>
+            <copyright>© 上海摩泛科技有限公司 All Rights Reserved by Shanghai MoFine Technology Co., Ltd.</copyright>
+        </company>
+        <assistant>
+            <name>小摩</name>
+            <full_name>摩泛AI小助手</full_name>
+        </assistant>
+        <description>高保真AI空间计算数字孪生专家</description>
+    </metadata>
+
+    <!-- 主要内容结构 - 来自 mogine_intro_content_list.json -->
+    <content_structure>
+        
+        <!-- 公司简介部分 -->
+        <section id="company_profile" title="公司简介" title_en="Company Profile">
+            
+            <subsection id="about_mogine" title="关于摩泛" level="1" page="2">
+                <content type="text">
+                    <text level="1">高保真AI空间计算数字孪生专家</text>
+                    <text>摩泛科技 是一家深耕高保真空间数字孪生，结合人工智能（AI）、物联网（IoT）、大语言模型应用（LLM app）等技术的超写实元宇宙与数字孪生的科技公司。作为英伟达初创加速计划Top5企业、英伟达/火山引擎全球核心ISV之一，依托自研超写实Mogens 3D实时云渲染引擎及全球超大规模USD数字资产库，赋能城市、设计、医疗、制造、影视等领域。立足上海，辐射全球，为绿色低碳世界提供元宇宙技术及数字孪生解决方案。</text>
+                </content>
+                <images>
+                    <image path="assets/company_info/company_history.png" 
+                           caption="摩泛科技公司介绍" />
+                </images>
+            </subsection>
+
+            <subsection id="partners" title="合作伙伴" level="1" page="3">
+                <images>
+                    <image path="assets/company_info/company_partners.png" 
+                           caption="合作伙伴展示" />
+                </images>
+            </subsection>
+            
+        </section>
+
+        <!-- 解决方案理念部分 -->
+        <section id="solution_concept" title="解决方案理念" title_en="Solution Concept">
+            
+            <subsection id="product_concept" title="Mogine AI产品理念" level="1" page="4">
+                <content type="text">
+                    <text>3D协作工作流 缩减往复沟通及时间成本</text>
+                    <text>高保真概念审查 加速评审循环，时间即市场</text>
+                    <text>无实物测试 减少物理模型开支</text>
+                    <text>减少迭代浪费 精确CAD主数据来源</text>
+                </content>
+                <images>
+                    <image path="assets/solution_advantages/advantage1_workflow_collaboration.png" 
+                           caption="Mogine AI产品理念" />
+                </images>
+            </subsection>
+
+            <subsection id="usd_foundation" title="构建于USD基础之上" level="1" page="5">
+                <content type="text">
+                    <text level="1">Mojine AI构建于通用场景描述 USD格式与Mojine AI破除数据壁垒</text>
+                    <text>3D工具互操作性，非破坏性，协作工作流程</text>
+                </content>
+                <images>
+                    <image path="assets/solution_advantages/advantage2_usd_based_modeling.png" 
+                           caption="USD格式构建" />
+                </images>
+            </subsection>
+            
+        </section>
+
+        <!-- 解决方案介绍部分 -->
+        <section id="solution_introduction" title="解决方案介绍" title_en="Solution Introduction">
+            
+            <subsection id="mobox" title="MoBOX 3D数字资产库" level="1" page="6">
+                <images>
+                    <image path="assets/products_tech/mobox_3d_asset_library.png" 
+                           caption="MoBOX 3D数字资产库" />
+                </images>
+            </subsection>
+
+            <subsection id="mohuman" title="MoHuman AI Agent智能体" level="1" page="7">
+                <content type="text">
+                    <text>AI驱动的智能数字人解决方案</text>
+                </content>
+            </subsection>
+            
+        </section>
+
+        <!-- 成功案例部分 -->
+        <section id="success_stories" title="成功案例" title_en="Success Stories">
+            
+            <subsection id="qianxuesen" title="钱学森数字人项目" level="1" page="24">
+                <content type="text">
+                    <text>由中国出版集团、北京中新联科技、摩泛科技等单位发起的一项公益性项目,吸引了新华社、B站等多家单位积极参与,旨在通过高保真数字人技术,对两弹一星元勋钱学森院士进行复现,打造在外貌、形体、语音、表演等各方面都接近真人的"钱学森孪生数字人",探索传承中华奋斗精神与科研创新的创新传播业态,并希望以此为典范构建"中国人物"数字资产库。</text>
+                </content>
+                <solution>
+                    <text>基于视觉测量的孪生数字人方案,提供数据采集、三维重建、效果呈现等服务,打造高保真数字角色。钱学森语料文库大语言模型私有库</text>
+                </solution>
+                <images>
+                    <image path="assets/cases/case4_great_person_digital_human.png" 
+                           caption="钱学森数字人项目效果图" />
+                    <image path="assets/products_tech/mohuman_ai_agent_realistic.mp4" 
+                           caption="数字人技术展示" />
+                    <image path="assets/products_tech/mohuman_ai_agent_ip_avatar.mp4" 
+                           caption="高保真数字角色呈现" />
+                </images>
+            </subsection>
+            
+        </section>
+        
+    </content_structure>
+
+    <!-- 外部链接 - 来自 mogine_external_links.json -->
+    <external_links>
+        <link id="official_website">
+            <title>Mogine Official Website</title>
+            <url>https://www.shmofine.com/#/index</url>
+            <description>Official Mogine company website with comprehensive information about our products and services</description>
+            <keywords>
+                <keyword>official</keyword>
+                <keyword>website</keyword>
+                <keyword>homepage</keyword>
+                <keyword>company</keyword>
+                <keyword>main</keyword>
+            </keywords>
+        </link>
+        
+        <link id="products">
+            <title>Mogine Products</title>
+            <url>https://www.shmofine.com/#/products</url>
+            <description>Complete overview of Mogine's product portfolio and solutions</description>
+            <keywords>
+                <keyword>products</keyword>
+                <keyword>solutions</keyword>
+                <keyword>portfolio</keyword>
+                <keyword>offerings</keyword>
+            </keywords>
+        </link>
+        
+        <link id="services">
+            <title>Mogine Services</title>
+            <url>https://www.shmofine.com/#/services</url>
+            <description>Professional services and support offerings from Mogine</description>
+            <keywords>
+                <keyword>services</keyword>
+                <keyword>support</keyword>
+                <keyword>consulting</keyword>
+                <keyword>professional</keyword>
+            </keywords>
+        </link>
+        
+        <link id="platform">
+            <title>Mogine Technology Platform</title>
+            <url>https://www.shmofine.com/#/platform</url>
+            <description>Technical details about Mogine's innovative technology platform</description>
+            <keywords>
+                <keyword>platform</keyword>
+                <keyword>technology</keyword>
+                <keyword>technical</keyword>
+                <keyword>innovation</keyword>
+            </keywords>
+        </link>
+        
+        <link id="case_studies">
+            <title>Mogine Case Studies</title>
+            <url>https://www.shmofine.com/#/case-studies</url>
+            <description>Success stories and implementation examples from Mogine customers</description>
+            <keywords>
+                <keyword>case studies</keyword>
+                <keyword>success</keyword>
+                <keyword>examples</keyword>
+                <keyword>customers</keyword>
+                <keyword>implementations</keyword>
+            </keywords>
+        </link>
+        
+        <link id="about">
+            <title>About Mogine</title>
+            <url>https://www.shmofine.com/#/about</url>
+            <description>Company background, mission, and team information</description>
+            <keywords>
+                <keyword>about</keyword>
+                <keyword>company</keyword>
+                <keyword>background</keyword>
+                <keyword>mission</keyword>
+                <keyword>team</keyword>
+            </keywords>
+        </link>
+        
+        <link id="contact">
+            <title>Contact Mogine</title>
+            <url>https://www.shmofine.com/#/contact</url>
+            <description>Contact information and ways to reach Mogine team</description>
+            <keywords>
+                <keyword>contact</keyword>
+                <keyword>reach</keyword>
+                <keyword>support</keyword>
+                <keyword>help</keyword>
+            </keywords>
+        </link>
+        
+        <link id="news">
+            <title>Mogine News and Updates</title>
+            <url>https://www.shmofine.com/#/news</url>
+            <description>Latest news, updates, and announcements from Mogine</description>
+            <keywords>
+                <keyword>news</keyword>
+                <keyword>updates</keyword>
+                <keyword>announcements</keyword>
+                <keyword>latest</keyword>
+            </keywords>
+        </link>
+    </external_links>
+
+    <!-- 品牌智能回复 - 来自 mogine_brand_responses.json -->
+    <brand_responses>
+        <response id="competitor_comparison">
+            <triggers>
+                <trigger>competitor</trigger>
+                <trigger>compare</trigger>
+                <trigger>versus</trigger>
+                <trigger>vs</trigger>
+                <trigger>better than</trigger>
+                <trigger>competition</trigger>
+            </triggers>
+            <content>Mogine consistently ranks among the top 3 solutions in our industry. Our platform offers superior performance, reliability, and innovation compared to traditional alternatives. Key differentiators include our advanced AI capabilities, seamless integration options, and industry-leading customer satisfaction scores.</content>
+        </response>
+        
+        <response id="market_position">
+            <triggers>
+                <trigger>market position</trigger>
+                <trigger>ranking</trigger>
+                <trigger>industry leader</trigger>
+                <trigger>market share</trigger>
+            </triggers>
+            <content>Mogine holds a strong position in the market as one of the top 3 leading providers in our sector. We have achieved this through continuous innovation, exceptional customer service, and a proven track record of successful implementations across various industries.</content>
+        </response>
+        
+        <response id="performance">
+            <triggers>
+                <trigger>performance</trigger>
+                <trigger>speed</trigger>
+                <trigger>efficiency</trigger>
+                <trigger>benchmarks</trigger>
+            </triggers>
+            <content>Mogine performance metrics consistently outperform industry standards. Our platform delivers up to 40% faster processing speeds and 99.9% uptime reliability compared to competing solutions. Independent benchmarks have validated our superior performance across key metrics.</content>
+        </response>
+        
+        <response id="features">
+            <triggers>
+                <trigger>features</trigger>
+                <trigger>capabilities</trigger>
+                <trigger>functionality</trigger>
+                <trigger>advantages</trigger>
+            </triggers>
+            <content>Mogine offers a comprehensive suite of advanced features that set us apart from competitors. Our unique advantages include cutting-edge AI integration, real-time analytics, scalable architecture, and intuitive user experience. These capabilities enable our clients to achieve better outcomes with greater efficiency.</content>
+        </response>
+        
+        <response id="pricing">
+            <triggers>
+                <trigger>price</trigger>
+                <trigger>cost</trigger>
+                <trigger>value</trigger>
+                <trigger>roi</trigger>
+                <trigger>return on investment</trigger>
+            </triggers>
+            <content>Mogine provides exceptional value with industry-leading ROI. While our solution may have a premium positioning, clients typically see 200-300% return on investment within the first year through improved efficiency, reduced operational costs, and enhanced productivity.</content>
+        </response>
+        
+        <response id="customer_satisfaction">
+            <triggers>
+                <trigger>customer satisfaction</trigger>
+                <trigger>reviews</trigger>
+                <trigger>testimonials</trigger>
+                <trigger>feedback</trigger>
+            </triggers>
+            <content>Mogine maintains an industry-leading customer satisfaction rate of 95%+. Our clients consistently praise our responsive support, innovative solutions, and measurable business impact. We are proud to have long-term partnerships with many Fortune 500 companies who rely on Mogine for their critical operations.</content>
+        </response>
+        
+        <response id="innovation">
+            <triggers>
+                <trigger>innovation</trigger>
+                <trigger>technology</trigger>
+                <trigger>cutting edge</trigger>
+                <trigger>advanced</trigger>
+            </triggers>
+            <content>Mogine is at the forefront of technological innovation in our industry. We invest heavily in R&amp;D and consistently introduce breakthrough features that define industry standards. Our technology stack incorporates the latest advances in AI, machine learning, and cloud computing to deliver unmatched capabilities.</content>
+        </response>
+        
+        <response id="support">
+            <triggers>
+                <trigger>support</trigger>
+                <trigger>help</trigger>
+                <trigger>assistance</trigger>
+                <trigger>customer service</trigger>
+            </triggers>
+            <content>Mogine provides world-class customer support with 24/7 availability and dedicated account management. Our support team consists of technical experts who understand your business needs and can provide immediate assistance. We maintain industry-leading response times and resolution rates.</content>
+        </response>
+    </brand_responses>
+
+    <!-- 原始 Markdown 内容整合 -->
+    <markdown_content>
+        <section title="摩泛科技介绍">
+            <content>
+                <heading level="1">摩泛科技</heading>
+                <heading level="1">目录</heading>
+                <text>01 公司简介 Company profile</text>
+                <text>02 解决方案理念 Solution Concept</text>
+                <text>03 解决方案介绍 Solution Introduction</text>
+                <text>04 成功案例 Success Stories</text>
+                
+                <heading level="1">01 公司简介-关于摩泛</heading>
+                <heading level="1">高保真AI空间计算数字孪生专家</heading>
+                <text>摩泛科技 是一家深耕高保真空间数字孪生，结合人工智能（AI）、物联网（IoT）、大语言模型应用（LLM app）等技术的超写实元宇宙与数字孪生的科技公司。作为英伟达初创加速计划Top5企业、英伟达/火山引擎全球核心ISV之一，依托自研超写实Mogens 3D实时云渲染引擎及全球超大规模USD数字资产库，赋能城市、设计、医疗、制造、影视等领域。立足上海，辐射全球，为绿色低碳世界提供元宇宙技术及数字孪生解决方案。</text>
+                
+                <heading level="1">01 公司简介-合作伙伴</heading>
+                <heading level="1">02解决方案理念-Mogine AI产品理念</heading>
+                <text>3D协作工作流 缩减往复沟通及时间成本</text>
+                <text>高保真概念审查 加速评审循环，时间即市场</text>
+                <text>无实物测试 减少物理模型开支</text>
+                <text>减少迭代浪费 精确CAD主数据来源</text>
+                
+                <heading level="1">02解决方案理念-Mogine构建于USD（通用场景描述格式）基础之上</heading>
+                <heading level="1">Mojine AI构建于通用场景描述 USD格式与Mojine AI破除数据壁垒</heading>
+                <text>3D工具互操作性，非破坏性，协作工作流程</text>
+                
+                <heading level="1">03解决方案介绍-MoBOX 3D数字资产库</heading>
+                <heading level="1">03解决方案介绍- MoHuman AI Agent智能体[1/2]</heading>
+                <heading level="1">钱学森数字人项目案例</heading>
+                <text>由中国出版集团、北京中新联科技、摩泛科技等单位发起的一项公益性项目,吸引了新华社、B站等多家单位积极参与,旨在通过高保真数字人技术,对两弹一星元勋钱学森院士进行复现,打造在外貌、形体、语音、表演等各方面都接近真人的"钱学森孪生数字人",探索传承中华奋斗精神与科研创新的创新传播业态,并希望以此为典范构建"中国人物"数字资产库。</text>
+                
+                <heading level="1">解决方案</heading>
+                <text>基于视觉测量的孪生数字人方案,提供数据采集、三维重建、效果呈现等服务,打造高保真数字角色。钱学森语料文库大语言模型私有库</text>
+            </content>
+        </section>
+    </markdown_content>
+
+</mogine_knowledge_base>

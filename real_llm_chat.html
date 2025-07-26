@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2495KLY5EC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2495KLY5EC');
+    </script>
+    
+    <!-- 基础Meta信息 -->
+    <title>真实LLM聊天 - 摩泛AI小助手 | Mogine Technology</title>
+    <meta name="description" content="摩泛科技智能AI聊天助手，基于豆包LLM和知识库的实时对话系统，支持流式输出、多媒体展示和外部搜索功能。">
+    <meta name="keywords" content="摩泛科技,AI聊天机器人,LLM,豆包API,知识库,流式输出,人工智能,数字孪生,MoHuman,钱学森数字人">
+    <meta name="author" content="Mogine Technology">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="zh-CN">
+    
+    <!-- Open Graph Meta Tags (社交媒体分享) -->
+    <meta property="og:title" content="摩泛AI小助手 - 智能LLM聊天系统">
+    <meta property="og:description" content="体验摩泛科技最新的AI聊天助手，集成知识库查询、实时搜索和多媒体展示功能。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.shmofine.com">
+    <meta property="og:image" content="kb/assets/company_info/company_history.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Mogine Technology">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="摩泛AI小助手 - 智能LLM聊天系统">
+    <meta name="twitter:description" content="体验摩泛科技最新的AI聊天助手，集成知识库查询、实时搜索和多媒体展示功能。">
+    <meta name="twitter:image" content="kb/assets/company_info/company_history.png">
+    <meta name="twitter:site" content="@MogineTech">
+    <meta name="twitter:creator" content="@MogineTech">
+    
+    <!-- 移动端优化 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="摩泛AI助手">
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-navbutton-color" content="#667eea">
+    
+    <!-- Favicon - 使用内联SVG作为临时解决方案 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- DNS预解析和预连接 -->
+    <link rel="dns-prefetch" href="//ark.cn-beijing.volces.com">
+    <link rel="dns-prefetch" href="//dashscope.aliyuncs.com">
+    <link rel="preconnect" href="https://ark.cn-beijing.volces.com" crossorigin>
+    <link rel="preconnect" href="https://dashscope.aliyuncs.com" crossorigin>
+    
+    <!-- 安全和隐私 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://ark.cn-beijing.volces.com https://dashscope.aliyuncs.com http://localhost:8739 http://localhost:8740 http://localhost:8741; img-src 'self' data: http://localhost:8740; media-src 'self' http://localhost:8740;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- 结构化数据 (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "摩泛AI小助手",
+        "description": "基于LLM的智能聊天机器人，支持知识库查询和实时搜索",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "上海摩泛科技有限公司",
+            "url": "https://www.shmofine.com",
+            "logo": "kb/assets/company_info/company_history.png"
+        },
+        "featureList": [
+            "实时LLM对话",
+            "知识库查询",
+            "流式输出",
+            "多媒体展示",
+            "外部搜索集成"
+        ]
+    }
+    </script>
+    
+    <!-- 引入配置文件 -->
+    <script src="config.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+        
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            height: 95vh;
+            min-height: 900px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 75%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .message.user .message-content {
+            background: #007bff;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e9ecef;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .text-content {
+            margin-bottom: 15px;
+        }
+        
+        .media-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .media-item {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            background: #f8f9fa;
+        }
+        
+        .media-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .media-item img:hover {
+            transform: scale(1.05);
+        }
+        
+        .media-item video {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .media-caption {
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #666;
+            background: white;
+        }
+        
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 70%;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .input-area input:focus {
+            border-color: #007bff;
+        }
+        
+        .input-area button {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .input-area button:hover:not(:disabled) {
+            background: #0056b3;
+        }
+        
+        .input-area button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-buttons {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .test-btn {
+            padding: 8px 16px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        
+        .test-btn:hover {
+            background: #5a6268;
+        }
+        
+        .scroll-to-bottom {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        
+        .scroll-to-bottom:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+        
+        .scroll-to-bottom.show {
+            display: flex;
+        }
+        
+        /* 留咨按钮样式 */
+        .contact-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            z-index: 200;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        .contact-button.show {
+            display: block;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(255, 107, 107, 0.8);
+            }
+            100% {
+                box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            }
+        }
+        
+        /* 联系方式模态框 */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .contact-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .contact-modal h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .contact-modal p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .qr-codes {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .qr-code-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .qr-code-item img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+        
+        .qr-code-item h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .contact-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #999;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .contact-close:hover {
+            color: #333;
+        }
+        
+        /* 图片预览模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>🤖 XiaoMo - Real LLM Version</h1>
+            <p>Powered by Doubao API | Real-time Streaming | Image & Video Display</p>
+        </div>
+        
+        <div class="chat-messages" id="messages">
+            <div class="message bot">
+                <div class="message-content">
+                    👋 Hello! I'm XiaoMo, the real LLM version of Mogine AI Assistant.<br><br>
+                    I now support:<br>
+                    • 🧠 Real Doubao API calls<br>
+                    • 📚 Mogine Technology knowledge base queries<br>
+                    • 🔍 External search services (competitive analysis expert)<br>
+                    • 🎬 Image and video display<br>
+                    • ⚡ Real-time streaming output<br><br>
+                    Every response is generated in real-time, and external search is automatically activated when the knowledge base has no answers!
+                </div>
+            </div>
+            
+            <button class="scroll-to-bottom" id="scrollToBottom" onclick="scrollToBottom()" title="滚动到底部">
+                ↓
+            </button>
+        </div>
+        
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="test-btn" onclick="testQuestion('钱学森数字人项目')">🎯 钱学森数字人</button>
+            <button class="test-btn" onclick="testQuestion('摩泛科技公司介绍')">🏢 公司介绍</button>
+            <button class="test-btn" onclick="testQuestion('MoHuman产品')">🤖 MoHuman产品</button>
+            <button class="test-btn" onclick="testQuestion('摩泛科技的主要竞争对手有哪些？')">🔍 外部搜索</button>
+            <button class="test-btn" onclick="testQuestion('现在几点了？')">🕐 实时信息</button>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="输入您的问题..." onkeypress="handleKeyPress(event)">
+            <button id="sendButton" onclick="sendMessage()">发送</button>
+        </div>
+        
+        <div class="status" id="status">
+            准备就绪 - 真实LLM版本
+        </div>
+    </div>
+
+    <!-- 留咨按钮 -->
+    <button class="contact-button" id="contactButton" onclick="showContactModal()">
+        💬 联系我们
+    </button>
+
+    <!-- 联系方式模态框 -->
+    <div id="contactModal" class="contact-modal">
+        <div class="contact-modal-content">
+            <span class="contact-close" onclick="closeContactModal()">&times;</span>
+            <h2>🤝 联系摩泛科技</h2>
+            <p>感谢您对摩泛科技的关注！<br>扫描下方二维码了解更多信息或联系我们</p>
+            <div class="qr-codes">
+                <div class="qr-code-item">
+                    <img src="kb/assets/contact/company_website_qrcode.jpg" alt="官网二维码">
+                    <h3>官方网站</h3>
+                </div>
+                <div class="qr-code-item">
+                    <img src="kb/assets/contact/company_wechat_qrcode.jpg" alt="微信二维码">
+                    <h3>微信联系</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片预览模态框 -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // 豆包API配置 - 从配置文件获取
+        const DOUBAO_CONFIG = AppConfig ? AppConfig.getDoubaoConfig() : {
+            apiKey: 'your-doubao-api-key',
+            baseUrl: 'https://ark.cn-beijing.volces.com/api/v3',
+            model: 'doubao-1-5-thinking-vision-pro-250428'
+        };
+
+        // DashScope配置
+        const DASHSCOPE_CONFIG = AppConfig ? AppConfig.getDashScopeConfig() : {
+            apiKey: 'your-dashscope-api-key',
+            baseUrl: 'https://dashscope.aliyuncs.com/api/v1/apps/your-app-id/completion'
+        };
+
+        // 服务器配置
+        const SERVER_CONFIG = AppConfig ? AppConfig.getServerConfig() : {
+            kbServer: 'http://localhost:8739',
+            fileServer: 'http://localhost:8740',
+            mainServer: 'http://localhost:8741'
+        };
+
+        // DOM元素
+        const messagesContainer = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const statusDiv = document.getElementById('status');
+        const scrollToBottomBtn = document.getElementById('scrollToBottom');
+        const contactButton = document.getElementById('contactButton');
+
+        // 聊天轮数计数器
+        let chatRounds = 0;
+
+        // 添加消息到聊天界面
+        function addMessage(content, isUser = false, mediaFiles = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            // 创建文本容器
+            const textContainer = document.createElement('div');
+            textContainer.className = 'text-content';
+            textContainer.innerHTML = content.replace(/\n/g, '<br>');
+            contentDiv.appendChild(textContainer);
+            
+            messageDiv.appendChild(contentDiv);
+            messagesContainer.appendChild(messageDiv);
+            
+            // 平滑滚动到底部
+            setTimeout(() => {
+                messagesContainer.scrollTo({
+                    top: messagesContainer.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 50);
+
+            return { textContainer, contentDiv }; // 返回容器，用于流式输出和媒体文件
+        }
+
+        // 图片预览模态框
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // 显示联系方式模态框
+        function showContactModal() {
+            // GA事件追踪 - 联系方式模态框打开
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact_modal_open', {
+                    'event_category': 'Engagement',
+                    'event_label': 'Contact Modal',
+                    'value': 1
+                });
+            }
+            
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        // 关闭联系方式模态框
+        function closeContactModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+
+        // 检查是否显示留咨按钮
+        function checkShowContactButton() {
+            if (chatRounds >= 3) {
+                contactButton.classList.add('show');
+            }
+        }
+
+        // 显示/隐藏打字指示器
+        function showTyping(show = true) {
+            typingIndicator.style.display = show ? 'block' : 'none';
+            if (show) {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+
+        // 更新状态
+        function updateStatus(message, type = 'normal') {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        // 查询知识库
+        async function queryKnowledgeBase(query) {
+            try {
+                const response = await fetch(`${SERVER_CONFIG.kbServer}/api/search?q=${encodeURIComponent(query)}&top_k=3`);
+                if (!response.ok) {
+                    throw new Error('知识库API请求失败');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('知识库查询错误:', error);
+                return {
+                    success: false,
+                    error: error.message,
+                    results: []
+                };
+            }
+        }
+
+        // 外部搜索服务 - 阿里云DashScope API（通过代理）
+        async function queryExternalSearch(query) {
+            try {
+                const response = await fetch(DASHSCOPE_CONFIG.baseUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        input: {
+                            prompt: query
+                        },
+                        parameters: {},
+                        debug: {}
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`外部搜索API请求失败: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.output && data.output.text) {
+                    return {
+                        success: true,
+                        content: data.output.text,
+                        source: '摩泛品牌专家搜索',
+                        session_id: data.output.session_id,
+                        usage: data.usage
+                    };
+                } else {
+                    throw new Error('外部搜索API返回格式异常');
+                }
+            } catch (error) {
+                console.error('外部搜索错误:', error);
+                return {
+                    success: false,
+                    error: error.message,
+                    content: '外部搜索服务暂时不可用',
+                    source: '外部搜索'
+                };
+            }
+        }
+
+        // 模拟其他外部服务（天气、计算、时间等）
+        function queryOtherServices(query) {
+            if (query.includes('天气')) {
+                return {
+                    success: true,
+                    content: '今天北京天气：晴朗，温度22°C，湿度60%，微风',
+                    source: '天气API'
+                };
+            } else if (query.includes('计算') || /[\d+\-*/]/.test(query)) {
+                try {
+                    const mathExpr = query.match(/[\d+\-*/().\s]+/);
+                    if (mathExpr) {
+                        const result = eval(mathExpr[0]);
+                        return {
+                            success: true,
+                            content: `计算结果：${mathExpr[0]} = ${result}`,
+                            source: '计算器'
+                        };
+                    }
+                } catch (e) {
+                    return { success: false, content: '计算表达式有误', source: '计算器' };
+                }
+            } else if (query.includes('时间') || query.includes('几点')) {
+                const now = new Date();
+                return {
+                    success: true,
+                    content: `当前时间：${now.toLocaleString('zh-CN')}`,
+                    source: '系统时间'
+                };
+            }
+
+            return { success: false, content: '暂不支持此类查询', source: '其他服务' };
+        }
+
+        // 调用豆包API - 流式版本（通过代理）
+        async function callDoubaoAPIStream(messages) {
+            try {
+                const response = await fetch(DOUBAO_CONFIG.baseUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: DOUBAO_CONFIG.model,
+                        messages: messages,
+                        temperature: 0.7,
+                        max_tokens: 1000,
+                        stream: true
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`豆包API请求失败: ${response.status}`);
+                }
+
+                return response;
+            } catch (error) {
+                console.error('豆包API调用错误:', error);
+                throw error;
+            }
+        }
+
+        // 真实流式输出
+        async function streamLLMResponse(messages, containers, mediaFiles = []) {
+            try {
+                const response = await callDoubaoAPIStream(messages);
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                
+                let content = '';
+                
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = line.slice(6);
+                            if (data === '[DONE]') break;
+                            
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.choices && parsed.choices[0].delta && parsed.choices[0].delta.content) {
+                                    content += parsed.choices[0].delta.content;
+                                    containers.textContainer.innerHTML = content.replace(/\n/g, '<br>');
+                                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                                }
+                            } catch (e) {
+                                // 忽略JSON解析错误
+                            }
+                        }
+                    }
+                }
+                
+                // 流式输出完成后，添加媒体文件
+                if (mediaFiles && mediaFiles.length > 0) {
+                    const mediaGallery = document.createElement('div');
+                    mediaGallery.className = 'media-gallery';
+                    
+                    mediaFiles.forEach(media => {
+                        const mediaItem = document.createElement('div');
+                        mediaItem.className = 'media-item';
+                        
+                        if (media.type === 'image') {
+                            const img = document.createElement('img');
+                            img.src = media.path;
+                            img.alt = media.caption;
+                            img.onclick = () => openModal(media.path);
+                            mediaItem.appendChild(img);
+                        } else if (media.type === 'video') {
+                            const video = document.createElement('video');
+                            video.src = media.path;
+                            video.controls = true;
+                            video.muted = true;
+                            mediaItem.appendChild(video);
+                        }
+                        
+                        if (media.caption) {
+                            const caption = document.createElement('div');
+                            caption.className = 'media-caption';
+                            caption.textContent = media.caption;
+                            mediaItem.appendChild(caption);
+                        }
+                        
+                        mediaGallery.appendChild(mediaItem);
+                    });
+                    
+                    containers.contentDiv.appendChild(mediaGallery);
+                }
+                
+            } catch (error) {
+                containers.textContainer.innerHTML = `抱歉，LLM调用出现错误：${error.message}`;
+            }
+        }
+
+        // 处理消息发送 - 真实LLM版本
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // GA事件追踪 - 用户发送消息
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'chat_message_sent', {
+                    'event_category': 'Chat',
+                    'event_label': 'User Message',
+                    'value': message.length
+                });
+            }
+
+            // 禁用输入
+            messageInput.disabled = true;
+            sendButton.disabled = true;
+            messageInput.value = '';
+
+            // 添加用户消息
+            addMessage(message, true);
+            
+            // 显示处理状态
+            showTyping(true);
+            updateStatus('正在查询知识库...', 'normal');
+
+            try {
+                // 1. 查询知识库
+                const kbResult = await queryKnowledgeBase(message);
+                await new Promise(resolve => setTimeout(resolve, 300));
+
+                // 2. 检查是否需要其他服务（天气、计算、时间等）
+                let externalResult = null;
+                const otherResult = queryOtherServices(message);
+                if (otherResult.success) {
+                    externalResult = otherResult;
+                }
+                
+                // 3. 如果知识库没有找到相关信息且没有其他服务结果，启动外部搜索
+                if ((!kbResult.success || kbResult.results.length === 0) && !externalResult) {
+                    updateStatus('知识库无相关信息，正在启动外部搜索...', 'normal');
+                    externalResult = await queryExternalSearch(message);
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+
+                updateStatus('正在调用豆包API整合信息...', 'normal');
+
+                // 4. 构建LLM提示
+                let systemPrompt = `你是摩泛科技的AI助手小摩。请基于提供的信息回答用户问题。
+
+摩泛科技是一家深耕高保真空间数字孪生的科技公司，专注于AI、IoT、LLM等技术。
+
+请优先使用知识库信息，如果有外部搜索结果也要整合使用。在回答中要自然地融合各种信息源。
+
+在回答中，如果有相关的图片或视频，请提及它们，我会在回答后展示这些媒体文件。`;
+
+                let userPrompt = `用户问题：${message}\n\n`;
+                
+                // 重要：每次查询都重新初始化mediaFiles数组
+                let mediaFiles = [];
+                
+                // 添加知识库信息
+                if (kbResult.success && kbResult.results.length > 0) {
+                    userPrompt += `📚 摩泛知识库信息：\n`;
+                    kbResult.results.forEach((result, index) => {
+                        userPrompt += `${index + 1}. ${result.title}: ${result.content}\n`;
+                        if (result.solution) {
+                            userPrompt += `   解决方案: ${result.solution}\n`;
+                        }
+                        if (result.media_files && result.media_files.length > 0) {
+                            userPrompt += `   相关媒体文件:\n`;
+                            result.media_files.forEach(media => {
+                                const mediaType = media.type === 'image' ? '图片' : '视频';
+                                userPrompt += `     - ${mediaType}: ${media.caption}\n`;
+                                // 只有当知识库结果真正相关时才添加媒体文件
+                                // 检查结果的相关性分数或标题是否与问题相关
+                                if (result.relevance_score > 0.3 || 
+                                    message.toLowerCase().includes(result.title.toLowerCase()) ||
+                                    result.title.toLowerCase().includes(message.toLowerCase().replace(/[？?！!。.]/g, ''))) {
+                                    mediaFiles.push({
+                                        type: media.type,
+                                        path: `kb/${media.path}`,
+                                        caption: media.caption
+                                    });
+                                }
+                            });
+                        }
+                        userPrompt += `\n`;
+                    });
+                }
+                
+                // 添加外部搜索信息
+                if (externalResult && externalResult.success) {
+                    userPrompt += `🔍 ${externalResult.source}信息：\n`;
+                    userPrompt += `${externalResult.content}\n\n`;
+                }
+                
+                // 如果两个都没有结果
+                if ((!kbResult.success || kbResult.results.length === 0) && 
+                    (!externalResult || !externalResult.success)) {
+                    userPrompt += `ℹ️ 知识库和外部搜索都未找到相关信息，请基于你的通用知识回答，但要说明这不是来自摩泛科技的官方信息。\n`;
+                }
+
+                // 5. 调用LLM并流式输出
+                showTyping(false);
+                updateStatus('正在生成回答...', 'normal');
+
+                const containers = addMessage('', false);
+                
+                const messages = [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ];
+
+                await streamLLMResponse(messages, containers, mediaFiles);
+
+                // 增加聊天轮数并检查是否显示留咨按钮
+                chatRounds++;
+                checkShowContactButton();
+
+                // GA事件追踪 - 聊天完成
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'chat_completed', {
+                        'event_category': 'Chat',
+                        'event_label': 'Chat Round',
+                        'value': chatRounds
+                    });
+                }
+
+                updateStatus('回答完成 - 真实LLM响应', 'success');
+
+            } catch (error) {
+                showTyping(false);
+                addMessage(`抱歉，处理过程中出现错误：${error.message}`, false);
+                updateStatus('处理出错', 'error');
+            } finally {
+                // 恢复输入
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                messageInput.focus();
+            }
+        }
+
+        // 滚动到底部功能
+        function scrollToBottom() {
+            messagesContainer.scrollTo({
+                top: messagesContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // 监听滚动事件
+        messagesContainer.addEventListener('scroll', function() {
+            const scrollTop = messagesContainer.scrollTop;
+            const scrollHeight = messagesContainer.scrollHeight;
+            const clientHeight = messagesContainer.clientHeight;
+            
+            if (scrollHeight - scrollTop - clientHeight > 100) {
+                scrollToBottomBtn.classList.add('show');
+            } else {
+                scrollToBottomBtn.classList.remove('show');
+            }
+        });
+
+        // 测试问题快捷按钮
+        function testQuestion(question) {
+            // GA事件追踪 - 快捷按钮点击
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'quick_button_click', {
+                    'event_category': 'UI',
+                    'event_label': question,
+                    'value': 1
+                });
+            }
+            
+            messageInput.value = question;
+            sendMessage();
+        }
+
+        // 键盘事件处理
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // 点击模态框外部关闭
+        window.onclick = function (event) {
+            const imageModal = document.getElementById('imageModal');
+            const contactModal = document.getElementById('contactModal');
+            
+            if (event.target == imageModal) {
+                imageModal.style.display = 'none';
+            }
+            
+            if (event.target == contactModal) {
+                contactModal.style.display = 'none';
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            messageInput.focus();
+            updateStatus('真实LLM版本已就绪 - 每次回答都是实时生成', 'success');
+            
+            // GA事件追踪 - 页面加载完成
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_loaded', {
+                    'event_category': 'Page',
+                    'event_label': 'Chat Interface',
+                    'value': 1
+                });
+            }
+        });
+    </script>
+</body>
+</html>

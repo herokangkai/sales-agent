@@ -1,0 +1,184 @@
+# Mogine AI Chatbot - Apache Configuration
+# 摩泛科技AI聊天机器人 - Apache配置
+
+# ==========================================
+# 安全设置
+# ==========================================
+
+# 隐藏服务器信息
+ServerTokens Prod
+ServerSignature Off
+
+# 防止访问敏感文件
+<FilesMatch "\.(env|py|pyc|pyo|log|ini|conf|bak|old|tmp)$">
+    Require all denied
+</FilesMatch>
+
+# 防止访问隐藏文件和目录
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# 防止访问Python缓存目录
+<DirectoryMatch "__pycache__|\.git|\.kiro|venv|node_modules">
+    Require all denied
+</DirectoryMatch>
+
+# ==========================================
+# MIME类型设置
+# ==========================================
+
+# 设置正确的MIME类型
+AddType application/javascript .js
+AddType text/css .css
+AddType text/html .html
+AddType application/json .json
+AddType application/manifest+json .webmanifest
+AddType image/svg+xml .svg
+AddType image/webp .webp
+AddType video/mp4 .mp4
+AddType video/webm .webm
+
+# ==========================================
+# 缓存控制
+# ==========================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # HTML文件 - 短期缓存
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # CSS和JavaScript - 中期缓存
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    
+    # 图片 - 长期缓存
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    
+    # 视频 - 长期缓存
+    ExpiresByType video/mp4 "access plus 1 month"
+    ExpiresByType video/webm "access plus 1 month"
+    
+    # 字体 - 长期缓存
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    
+    # Manifest和配置文件
+    ExpiresByType application/manifest+json "access plus 1 week"
+    ExpiresByType application/json "access plus 1 day"
+</IfModule>
+
+# ==========================================
+# Gzip压缩
+# ==========================================
+
+<IfModule mod_deflate.c>
+    # 启用压缩
+    SetOutputFilter DEFLATE
+    
+    # 压缩文本文件
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/manifest+json
+    
+    # 排除已压缩的文件
+    SetEnvIfNoCase Request_URI \
+        \.(?:gif|jpe?g|png|zip|gz|bz2|sit|rar|mp4|webm)$ no-gzip dont-vary
+</IfModule>
+
+# ==========================================
+# CORS设置
+# ==========================================
+
+<IfModule mod_headers.c>
+    # 开发环境CORS设置
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    Header always set Access-Control-Max-Age "3600"
+    
+    # 安全头
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # CSP头（内容安全策略）
+    Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://ark.cn-beijing.volces.com https://dashscope.aliyuncs.com http://localhost:8739 http://localhost:8740 http://localhost:8741; img-src 'self' data: http://localhost:8740; media-src 'self' http://localhost:8740;"
+</IfModule>
+
+# ==========================================
+# URL重写规则
+# ==========================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # 强制使用HTTPS（生产环境）
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # 移除尾随斜杠
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [R=301,L]
+    
+    # 默认页面重定向
+    RewriteRule ^$ real_llm_chat.html [L]
+    RewriteRule ^index\.html?$ real_llm_chat.html [R=301,L]
+    
+    # API代理（如果需要）
+    # RewriteRule ^api/(.*)$ http://localhost:8080/api/$1 [P,L]
+</IfModule>
+
+# ==========================================
+# 错误页面
+# ==========================================
+
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+ErrorDocument 403 /403.html
+
+# ==========================================
+# 性能优化
+# ==========================================
+
+# 启用KeepAlive
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+
+FileETag None
+
+# 限制请求大小（防止大文件上传攻击）
+LimitRequestBody 10485760  # 10MB
+
+# 设置默认字符集
+AddDefaultCharset UTF-8
+
+# ==========================================
+# 日志设置
+# ==========================================
+
+# 自定义日志格式
+LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\" %D" combined_with_time
+
+# 记录慢请求
+<IfModule mod_log_config.c>
+    CustomLog logs/access.log combined_with_time
+    LogLevel warn
+</IfModule>

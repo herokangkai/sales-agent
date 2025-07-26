@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2495KLY5EC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2495KLY5EC');
+    </script>
+    
+    <title>摩泛AI - 查询分析仪表板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .intent-list {
+            list-style: none;
+        }
+
+        .intent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .intent-item:last-child {
+            border-bottom: none;
+        }
+
+        .intent-name {
+            font-weight: 500;
+        }
+
+        .intent-count {
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .query-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .query-table th,
+        .query-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .query-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .query-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: background 0.2s;
+        }
+
+        .refresh-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .time-filter {
+            margin-bottom: 1rem;
+        }
+
+        .time-filter select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>📊 查询分析仪表板</h1>
+        <p>摩泛AI聊天机器人 - 用户查询数据分析</p>
+    </div>
+
+    <div class="container">
+        <div class="time-filter">
+            <label>时间范围:</label>
+            <select id="timeRange" onchange="loadData()">
+                <option value="7">最近7天</option>
+                <option value="30" selected>最近30天</option>
+                <option value="90">最近90天</option>
+            </select>
+            <button class="refresh-btn" onclick="refreshData()">🔄 刷新数据</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalQueries">-</div>
+                <div class="stat-label">总查询数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgLength">-</div>
+                <div class="stat-label">平均查询长度</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="topIntent">-</div>
+                <div class="stat-label">热门意图</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="dailyAvg">-</div>
+                <div class="stat-label">日均查询</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3 class="chart-title">📈 查询趋势</h3>
+            <div id="trendChart">
+                <div class="loading">正在加载趋势数据...</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3 class="chart-title">🎯 意图分布</h3>
+            <div id="intentChart">
+                <div class="loading">正在加载意图分布...</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3 class="chart-title">📝 最近查询记录</h3>
+            <div id="recentQueries">
+                <div class="loading">正在加载查询记录...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin.replace(':8741', ':8742');
+
+        // 刷新数据函数（带GA追踪）
+        function refreshData() {
+            // GA事件追踪 - 手动刷新数据
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'data_refresh', {
+                    'event_category': 'Analytics',
+                    'event_label': 'Manual Refresh',
+                    'value': 1
+                });
+            }
+            loadData();
+        }
+
+        async function loadData() {
+            const days = document.getElementById('timeRange').value;
+
+            try {
+                // 加载统计数据
+                const statsResponse = await fetch(`${API_BASE}/api/analytics/statistics?days=${days}`);
+                const stats = await statsResponse.json();
+
+                // 更新统计卡片
+                document.getElementById('totalQueries').textContent = stats.total_queries || 0;
+                document.getElementById('avgLength').textContent = stats.avg_query_length || 0;
+
+                const intentEntries = Object.entries(stats.intent_distribution || {});
+                const topIntent = intentEntries.length > 0 ? intentEntries[0][0] : '暂无数据';
+                document.getElementById('topIntent').textContent = topIntent;
+
+                const dailyAvg = Math.round((stats.total_queries || 0) / parseInt(days));
+                document.getElementById('dailyAvg').textContent = dailyAvg;
+
+                // 加载查询趋势
+                loadTrendChart(stats.query_trend || {});
+
+                // 加载意图分布
+                loadIntentChart(stats.intent_distribution || {});
+
+                // 加载最近查询
+                loadRecentQueries();
+
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                showError('数据加载失败，请检查服务器连接');
+            }
+        }
+
+        function loadTrendChart(trendData) {
+            const container = document.getElementById('trendChart');
+
+            if (Object.keys(trendData).length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">暂无趋势数据</p>';
+                return;
+            }
+
+            let html = '<div style="display: flex; align-items: end; height: 200px; gap: 5px;">';
+            const maxValue = Math.max(...Object.values(trendData));
+
+            for (const [date, count] of Object.entries(trendData)) {
+                const height = maxValue > 0 ? (count / maxValue) * 180 : 0;
+                html += `
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="background: #667eea; width: 100%; height: ${height}px; border-radius: 3px 3px 0 0; margin-bottom: 5px;" title="${date}: ${count}次查询"></div>
+                        <small style="font-size: 0.7rem; color: #666;">${date.slice(-5)}</small>
+                    </div>
+                `;
+            }
+            html += '</div>';
+
+            container.innerHTML = html;
+        }
+
+        function loadIntentChart(intentData) {
+            const container = document.getElementById('intentChart');
+
+            if (Object.keys(intentData).length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">暂无意图数据</p>';
+                return;
+            }
+
+            const sortedIntents = Object.entries(intentData)
+                .sort(([, a], [, b]) => b - a)
+                .slice(0, 10);
+
+            let html = '<ul class="intent-list">';
+            for (const [intent, count] of sortedIntents) {
+                html += `
+                    <li class="intent-item">
+                        <span class="intent-name">${intent}</span>
+                        <span class="intent-count">${count}</span>
+                    </li>
+                `;
+            }
+            html += '</ul>';
+
+            container.innerHTML = html;
+        }
+
+        async function loadRecentQueries() {
+            try {
+                const response = await fetch(`${API_BASE}/api/analytics/queries?limit=20`);
+                const data = await response.json();
+                const container = document.getElementById('recentQueries');
+
+                if (!data.queries || data.queries.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #666;">暂无查询记录</p>';
+                    return;
+                }
+
+                let html = `
+                    <table class="query-table">
+                        <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>查询内容</th>
+                                <th>意图分类</th>
+                                <th>置信度</th>
+                                <th>处理时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                for (const query of data.queries) {
+                    const timestamp = new Date(query.timestamp).toLocaleString('zh-CN');
+                    const queryText = query.query_text.length > 50
+                        ? query.query_text.substring(0, 50) + '...'
+                        : query.query_text;
+                    const confidence = query.intent_confidence
+                        ? (query.intent_confidence * 100).toFixed(1) + '%'
+                        : '-';
+                    const processingTime = query.processing_time
+                        ? (query.processing_time * 1000).toFixed(0) + 'ms'
+                        : '-';
+
+                    html += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td title="${query.query_text}">${queryText}</td>
+                            <td>${query.intent_category || '-'}</td>
+                            <td>${confidence}</td>
+                            <td>${processingTime}</td>
+                        </tr>
+                    `;
+                }
+
+                html += '</tbody></table>';
+                container.innerHTML = html;
+
+            } catch (error) {
+                console.error('加载查询记录失败:', error);
+                document.getElementById('recentQueries').innerHTML =
+                    '<div class="error">查询记录加载失败</div>';
+            }
+        }
+
+        function showError(message) {
+            const container = document.querySelector('.container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            container.insertBefore(errorDiv, container.firstChild);
+
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+
+        // 页面加载时初始化数据
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            
+            // GA事件追踪 - 分析仪表板加载
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'dashboard_loaded', {
+                    'event_category': 'Analytics',
+                    'event_label': 'Dashboard View',
+                    'value': 1
+                });
+            }
+        });
+
+        // 每5分钟自动刷新数据
+        setInterval(loadData, 5 * 60 * 1000);
+    </script>
+</body>
+
+</html>

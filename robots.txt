@@ -1,0 +1,46 @@
+# Robots.txt for Mogine AI Chatbot
+# 摩泛科技AI聊天机器人
+
+User-agent: *
+Allow: /
+Allow: /real_llm_chat.html
+Allow: /kb/assets/
+Allow: /manifest.json
+Allow: /config.js
+
+# 禁止访问敏感文件
+Disallow: /.env
+Disallow: /.env.*
+Disallow: /config.py
+Disallow: /chatbot/
+Disallow: /__pycache__/
+Disallow: /*.pyc
+Disallow: /venv/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.kiro/
+
+# 允许搜索引擎访问媒体文件
+Allow: /kb/assets/cases/
+Allow: /kb/assets/products_tech/
+Allow: /kb/assets/company/
+Allow: /kb/assets/contact/
+
+# 站点地图
+Sitemap: http://localhost:8741/sitemap.xml
+
+# 爬取延迟（毫秒）
+Crawl-delay: 1
+
+# 特定搜索引擎规则
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
